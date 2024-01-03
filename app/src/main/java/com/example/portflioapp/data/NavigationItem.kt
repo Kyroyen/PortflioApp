@@ -18,3 +18,11 @@ data class Research(
     val citation:Int = 300,
     val year:Int = 1920,
 )
+
+data class Education(
+    val institute: String = "Nigerian Plantation University",
+    val degree:String = "Kindergarten Dropout",
+    val period:String = "2000 - 1900",
+    val grade:String = "F",
+    val skills:String = "Cloud Infrastructure · Higher Education · Databases · Educational Technology · Linux · HTML5 · Microsoft Excel · Computer Science"
+)

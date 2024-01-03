@@ -14,4 +14,19 @@ object SampleData {
         Research(),
         Research(),
     )
+
+    val educationList = listOf(
+        Education(),
+        Education(),
+        Education(),
+        Education(),
+        Education(),
+        Education(),
+        Education(),
+        Education(),
+        Education(),
+        Education(),
+        Education(),
+        Education(),
+    )
 }

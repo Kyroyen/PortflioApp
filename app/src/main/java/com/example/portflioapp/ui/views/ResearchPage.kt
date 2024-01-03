@@ -79,7 +79,9 @@ fun ResearchPageElements(
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentHeight()
-                            .weight(1f)
+                            .weight(1f),
+                        style = MaterialTheme.typography.labelSmall,
+                        fontSize = 14.sp
                     )
                     Text(
                         text = "Citations",
@@ -88,6 +90,8 @@ fun ResearchPageElements(
                             .wrapContentHeight()
                             .weight(0.3f),
                         textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.labelSmall,
+                        fontSize = 14.sp
                     )
                     Text(
                         text = "Year",
@@ -96,6 +100,8 @@ fun ResearchPageElements(
                             .wrapContentHeight()
                             .weight(0.3f),
                         textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.labelSmall,
+                        fontSize = 14.sp
                     )
                 }
             }

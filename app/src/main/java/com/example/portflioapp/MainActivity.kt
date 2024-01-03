@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -39,9 +40,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import com.example.portflioapp.data.NavigationItem
+import com.example.portflioapp.ui.Navigation
+import com.example.portflioapp.ui.Screen
 import com.example.portflioapp.ui.theme.PortflioAppTheme
 import com.example.portflioapp.ui.views.AboutPage
+import com.example.portflioapp.ui.views.EducationPage
 import com.example.portflioapp.ui.views.LandingPage
 import com.example.portflioapp.ui.views.ResearchPage
 import com.example.portflioapp.ui.views.openLink
@@ -56,7 +61,7 @@ class MainActivity : ComponentActivity() {
                 val menuItems = listOf(
                     "Home",
                     "Research",
-                    "Recommendations",
+                    "Education",
                     "About",
                 )
                 Surface(
@@ -66,8 +71,9 @@ class MainActivity : ComponentActivity() {
                     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                     val scope = rememberCoroutineScope()
                     var selectedItemIndex by rememberSaveable {
-                        mutableStateOf(0)
+                        mutableIntStateOf(0)
                     }
+                    val navController = rememberNavController()
                     ModalNavigationDrawer(
                         drawerContent = {
                             ModalDrawerSheet {
@@ -86,11 +92,20 @@ class MainActivity : ComponentActivity() {
                                                 label = { Text(text = item) },
                                                 selected = selectedItemIndex == index,
                                                 onClick = {
-                                                    //TODO
                                                     selectedItemIndex = index
                                                     scope.launch {
                                                         drawerState.close()
                                                     }
+                                                    val dest = when(index){
+                                                        (0) -> Screen.LandingPage.route
+                                                        (1) -> Screen.ResearchPage.route
+                                                        (2) -> Screen.EducationPage.route
+                                                        else -> Screen.AboutPage.route
+                                                    }
+                                                    navController.navigate(
+                                                        dest
+                                                    )
+
                                                 },
                                                 modifier = Modifier
                                                     .width(250.dp)
@@ -131,9 +146,11 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         },
-                        drawerState = drawerState
+                        drawerState = drawerState,
                     ) {
-                        ResearchPage {
+                        Navigation(
+                            navController
+                        ) {
                             scope.launch {
                                 Log.d("Bhosda", "Open")
                                 drawerState.open()
